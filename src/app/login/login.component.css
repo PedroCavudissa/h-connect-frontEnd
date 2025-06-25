@@ -1,0 +1,211 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  background-size: cover;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 20px;
+}
+
+.login-box {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 35px 75px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.login-box img {
+  width: 40%;
+  height: 30%;
+  margin-bottom: 15px;
+}
+
+.login-box h2 {
+  font-size: 20px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 18px;
+  text-align: left;
+ 
+}
+
+.formulario-login{
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 15px 7px;
+  box-shadow:2px  2px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.input-group label {
+  font-size: 14px;
+  color: #222;
+}
+
+.input-group input {
+  width: 100%;
+  background-color: #fff;
+  padding: 10px;
+  margin-top: 5px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+::placeholder {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0d91f7;
+  color: white;
+  font-size: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  gap: 8px;
+}
+
+.btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.btn:hover {
+  background-color: #005dc1;
+}
+
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.mensagem-login {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.mensagem-login.erro {
+  background-color: #ffe0e0;
+  color: #d10000;
+  border: 1px solid #d10000;
+}
+
+.mensagem-login.sucesso {
+  background-color: #e1ffe5;
+  color: #027a35;
+  border: 1px solid #027a35;
+}
+
+.esqueci-senha {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.esqueci-senha a, .inscription {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.esqueci-senha a:hover, .inscription:hover {
+  text-decoration: underline;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  width: 90%;
+  max-width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.modal-buttons button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-buttons button:first-child {
+  background-color: #ccc;
+}
+
+.modal-buttons button:last-child {
+  background-color: #0d91f7;
+  color: white;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .login-box {
+    padding: 25px 20px;
+    max-width: 100%;
+  }
+
+  .login-box h2 {
+    font-size: 18px;
+  }
+
+  .btn {
+    font-size: 14px;
+  }
+}

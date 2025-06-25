@@ -1,0 +1,231 @@
+*{
+  padding: 0;
+
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #f4f4f4;
+  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+/* Container principal */
+.container {
+  margin: 80px auto;
+  padding: 24px;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+/* Botões de navegação */
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.usuario{
+  cursor: pointer;
+}
+.nav-buttons button {
+  background-color: #006;
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #004;
+}
+
+/* Card que contém o conteúdo de cada aba */
+.card {
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 102, 0.2);
+  max-width: 960px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+/* Estilo para inputs e áreas de texto */
+input[type="text"],
+input[type="url"],
+input[type="datetime-local"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #006;
+}
+
+/* Cabeçalhos */
+h2, h3, h4 {
+  color: #006;
+  margin-bottom: 12px;
+}
+
+/* Chat layout */
+.chat-container {
+  display: flex;
+  gap: 16px;
+}
+
+.chat-sidebar {
+  width: 260px;
+  border-right: 1px solid #eee;
+  padding-right: 16px;
+}
+
+.chat-item {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background-color: #f2f2f2;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-item.active {
+  background-color: #dde0ff;
+  font-weight: bold;
+}
+
+.chat-content {
+  flex-grow: 1;
+}
+
+.chat-messages {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+}
+
+.chat-messages > div {
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background-color: #e6e6ff;
+  max-width: 75%;
+}
+
+.chat-messages .sent {
+  background-color: rgb(187, 187, 240);
+  align-self: flex-end;
+}
+
+.chat-messages .received {
+  background-color: rgb(222, 222, 242);
+  align-self: flex-start;
+}
+
+.chat-input {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-input input {
+  border-radius: 10px;
+  flex-grow: 1;
+}
+
+/* Itens genéricos */
+.item {
+  background-color: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border-left: 4px solid #006;
+}
+
+button {
+  background-color: #006;
+  color: white;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #004;
+}
+
+/* Filtro */
+input[type="text"]::placeholder,
+input[type="url"]::placeholder,
+textarea::placeholder {
+  color: #999;
+}
+
+.badge {
+  background-color: red;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 999px;
+}
+
+/* Reunião */
+.form-agendamento label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #444;
+}
+
+.message-actions button{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #006;
+  font-size: 16px;
+}
+.search{
+  border-radius: 5px;
+  width: 100%;
+  height: 
+  20%;
+  margin-bottom: 5%;
+}
+.btn-filtro{
+  margin-bottom: 10px;
+}
+
+/* Responsivo */
+@media screen and (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+  }
+
+  .chat-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+
+  .chat-messages > div {
+    max-width: 100%;
+  }
+}

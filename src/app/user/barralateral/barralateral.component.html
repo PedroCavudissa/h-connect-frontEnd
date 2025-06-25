@@ -1,0 +1,35 @@
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<!-- Botão hambúrguer -->
+<div class="hamburger" (click)="toggleMenu()">☰</div>
+
+<!-- Header fixo -->
+<div class="supbar">
+  <ul class="menu-topo">
+    <li><span (click)="selecionarMenu('Inicio')"><i class="bx bx-home">Página Inicial</i></span></li>
+    <li><span (click)="selecionarMenu('Perfil')"><i class="bx bx-user">Perfil</i></span></li>
+    <li><span (click)="selecionarMenu('Projetos')"><i class="bx bx-file">Projectos</i> </span></li>
+    <li><span (click)="selecionarMenu('Conexões')"> <i class="bx bx-link"></i>Conexões</span></li>
+    <li><span (click)="selecionarMenu('Publicações')"><i class="bx bx-news"></i>Publicações</span></li>
+    <li><span (click)="selecionarMenu('Mensagens')"><i class=" bx bx-message">Mensagens</i></span></li>
+    <li><span (click)="selecionarMenu('Definições')"><i class="bx bx-cog"></i> Definições</span></li>
+  </ul>
+  <div class="boas-vindas">
+    <span>Bem-vindo, Usuário!</span>
+    <button class="sair" (click)="logout()">Sair</button>
+  </div>
+</div>
+
+<!-- Sidebar que aparece no mobile -->
+<nav class="sidebar" [class.active]="menuAtivo">
+  <ul class="menu-lateral">
+    <li><span (click)="selecionarMenu('Inicio')"><i class="bx bx-home">Página Inicial</i></span></li>
+    <li><span (click)="selecionarMenu('Perfil')"><i class="bx bx-user">Perfil</i></span></li>
+    <li><span (click)="selecionarMenu('Projetos')"><i class="bx bx-file">Projectos</i> </span></li>
+    <li><span (click)="selecionarMenu('Conexões')"> <i class="bx bx-link"></i>Conexões</span></li>
+    <li><span (click)="selecionarMenu('Publicações')"><i class="bx bx-news"></i>Publicações</span></li>
+    <li><span (click)="selecionarMenu('Mensagens')"><i class=" bx bx-message">Mensagens</i></span></li>
+    <li><span (click)="selecionarMenu('Definições')"><i class="bx bx-cog"></i> Definições</span></li>
+  </ul>
+</nav>
+

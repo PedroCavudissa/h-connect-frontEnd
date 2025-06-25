@@ -1,0 +1,184 @@
+<body>
+  
+
+<div class="container">
+  <div class="nav-buttons">
+    <button (click)="abrirMenu('mensagens')">Mensagens</button>
+    <button (click)="abrirMenu('projetos')">Projetos</button>
+    <button (click)="abrirMenu('conexoes')">Conexões</button>
+    <button (click)="abrirMenu('reunioes')">Reuniões</button>
+  </div>
+
+  <div class="card">
+    <ng-container [ngSwitch]="menuAberto">
+
+      <!-- 🟫 Nenhuma opção selecionada -->
+      <div *ngSwitchDefault>
+        <h2>Definições</h2>
+        <p>Escolha uma opção acima para visualizar os filtros ou agendar reuniões.</p>
+      </div>
+
+      <!-- 🟩 Mensagens -->
+      <div *ngSwitchCase="'mensagens'" class="chat-container">
+        <aside class="chat-sidebar">
+          <h3>Conversas</h3>
+          <input [(ngModel)]="filtroMensagens" placeholder="Buscar por usuário ou conteúdo..."class="search" />
+          <div 
+            class="chat-item"
+            *ngFor="let conversa of conversasFiltradas()"
+            (click)="abrirConversa(conversa.usuario)"
+            [class.active]="conversa.usuario === conversaSelecionada">
+            <span>{{ conversa.usuario }}</span>
+            <span *ngIf="conversa.naoLidas > 0" class="badge">{{ conversa.naoLidas }}</span>
+          </div>
+        </aside>
+
+        <section class="chat-content" *ngIf="conversaSelecionada">
+          <h4>Conversa com {{ conversaSelecionada }}</h4>
+          <div class="chat-messages">
+            <div *ngFor="let msg of mensagensDaConversa"
+              [class.sent]="msg.remetente === usuarioAtual"
+              [class.received]="msg.destinatario === usuarioAtual">
+              <p>{{ msg.conteudo }}</p>
+              <small>{{ msg.data | date:'short' }}</small>
+
+              <div *ngIf="msg.remetente === usuarioAtual" class="message-actions">
+                <button (click)="editarMensagem(msg)">
+                  <i class="bx bx-edit"></i>
+                </button>
+                <button (click)="eliminarMensagem(msg)">
+                  <i class="bx bx-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="chat-input">
+            <input [(ngModel)]="mensagemTexto" placeholder="Digite uma mensagem..." />
+            <button (click)="enviarMensagemParaSelecionado()">Enviar</button>
+          </div>
+        </section>
+
+        <section class="chat-content" *ngIf="!conversaSelecionada">
+          <p>Selecione uma conversa para começar</p>
+        </section>
+      </div>
+
+      <!-- 🟧 Projetos -->
+      <div *ngSwitchCase="'projetos'">
+        <h3>Projetos</h3>
+        <div *ngFor="let p of projetosFiltrados()">
+          <p class="item">
+            {{ p.nome }} - <strong>{{ p.criador }}</strong>
+            <button (click)="abrirChatProjeto(p.id)">Abrir Chat</button>
+          </p>
+        </div>
+
+        <div *ngIf="projetoSelecionadoId" class="chat-projeto">
+          <h4>Chat do Projeto: {{ projetoSelecionadoId }}</h4>
+          <div class="chat-messages">
+            <div *ngFor="let msg of mensagensDoProjetoSelecionado">
+              <p><strong>{{ msg.autor }}:</strong> {{ msg.conteudo }}</p>
+              <small>{{ msg.data | date:'short' }}</small>
+            </div>
+          </div>
+          <div class="chat-input">
+            <input [(ngModel)]="mensagemGrupoTexto" placeholder="Digite sua mensagem..." />
+            <button (click)="enviarMensagemGrupo()">Enviar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🟨 Conexões -->
+      <div *ngSwitchCase="'conexoes'">
+        <h3>Minhas Conexões</h3>
+
+        <button (click)="mostrarFiltro = !mostrarFiltro">
+          {{ mostrarFiltro ? 'Ocultar Filtro' : 'Pesquisar' }}
+        </button>
+
+        <div *ngIf="mostrarFiltro">
+          <input
+            type="text"
+            [(ngModel)]="filtroConexoes"
+            placeholder="Nome ou conteúdo da conversa..."
+          />
+        </div>
+
+        <div *ngIf="conexoesFiltradas().length > 0; else semConexoes">
+          <div *ngFor="let c of conexoesFiltradas()" class="conexao-item" (click)="abrirConversaComConexao(c)">
+            <span class="usuario">
+              {{
+                getNomeUsuario(c.usuario_id) === usuarioAtualNome
+                  ? getNomeUsuario(c.conectado_id)
+                  : getNomeUsuario(c.usuario_id)
+              }}
+            </span>
+          </div>
+        </div>
+
+        <ng-template #semConexoes>
+          <p class="item">Nenhuma conexão encontrada.</p>
+        </ng-template>
+      </div>
+
+      <!-- 🟦 Reuniões -->
+      <div *ngSwitchCase="'reunioes'">
+        <h3>Reuniões Agendadas</h3>
+
+        <button (click)="mostrarFiltro = !mostrarFiltro" class="btn-filtro">
+          {{ mostrarFiltro ? 'Ocultar Filtro' : 'Pesquisar' }}
+          
+        </button>
+
+        <div *ngIf="mostrarFiltro">
+          <input
+            type="text"
+            [(ngModel)]="filtroReunioes"
+            placeholder="Buscar por título, participantes ou descrição..."
+          />
+        </div>
+
+        <div *ngIf="reunioesFiltradas().length === 0">
+          <p>Nenhuma reunião encontrada.</p>
+        </div>
+
+        <div *ngFor="let r of reunioesFiltradas()" class="item">
+          <strong>{{ r.titulo }}</strong> <br />
+          <span><b>Data:</b> {{ r.dataHora | date:'short' }}</span><br />
+          <span><b>Participantes:</b> {{ r.participantes }}</span><br />
+          <span><b>Link:</b> <a href="{{ r.link }}" target="_blank">{{ r.link }}</a></span><br />
+          <span><b>Descrição:</b> {{ r.descricao }}</span>
+          <hr />
+        </div>
+
+        <button (click)="mostrarFormulario = !mostrarFormulario">
+          {{ mostrarFormulario ? 'Cancelar' : 'Novo Agendamento' }}
+        </button>
+
+        <div *ngIf="mostrarFormulario" class="form-agendamento">
+          <h4>Agendar Nova Reunião</h4>
+
+          <label>Título</label>
+          <input type="text" [(ngModel)]="novaReuniao.titulo" />
+
+          <label>Participantes (IDs separados por vírgula)</label>
+          <input type="text" [(ngModel)]="novaReuniao.participantes" />
+
+          <label>Data e Hora</label>
+          <input type="datetime-local" [(ngModel)]="novaReuniao.dataHora" />
+
+          <label>Link do Google Meet</label>
+          <input type="url" [(ngModel)]="novaReuniao.link" placeholder="https://meet.google.com/..." />
+
+          <label>Descrição</label>
+          <textarea [(ngModel)]="novaReuniao.descricao"></textarea>
+
+          <button (click)="agendarReuniao()">Agendar</button>
+        </div>
+      </div>
+      
+    </ng-container>
+  </div>
+</div>
+</body>
+<app-barralateral></app-barralateral>

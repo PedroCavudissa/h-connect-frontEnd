@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    background-color: #f4f4f4;
+    height: 100vh;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+  .card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+  }
+  .perfil-info label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 16px;
+  }
+  .perfil-info input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+  }
+  .botoes button {
+    margin-right: 1rem;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #006;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .modal {
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .modal-content h3 {
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .modal-content label {
+    display: block;
+    margin-bottom: 1rem;
+    font-size: 15px;
+    color: #333;
+  }
+  
+  .modal-content input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 0.3rem;
+  }
+  
+  .modal-botoes {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  
+  .modal-botoes button {
+    margin: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    background-color: #0044cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .modal-botoes button:hover {
+    background-color: #0033aa;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+        margin-top: 10%;
+      padding: 1rem;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .modal-content {
+      padding: 1.5rem;
+    }
+  
+    .modal-content h3 {
+      font-size: 18px;
+    }
+  
+    .modal-botoes button {
+      width: 100%;
+      margin: 0.5rem 0;
+    }
+  }
+  

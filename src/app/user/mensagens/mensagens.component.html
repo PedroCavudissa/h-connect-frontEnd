@@ -1,0 +1,59 @@
+<main class="container">
+  <div class="body">
+
+    <h2>Mensagens</h2>
+    
+    <div class="formulario">
+      <input [(ngModel)]="novaMensagem.remetente" placeholder="Seu nome (remetente)" />
+      <input [(ngModel)]="novaMensagem.destinatario" placeholder="Destinatário" />
+     <!-- <select name="destinatario" id="fghj" aria-placeholder="Destinatário">
+        <option value="f"  [(ngModel)]="novaMensagem.destinatario" ></option>
+       
+      </select>
+    -->
+      <textarea [(ngModel)]="novaMensagem.conteudo" placeholder="Mensagem"></textarea>
+      
+      <button (click)="enviarMensagem()">
+        {{ editandoId !== null ? 'Atualizar' : 'Enviar' }}
+      </button>
+      
+    </div>
+    
+    <hr />
+    <div class="mensagens">
+
+   
+    <!-- Enviadas -->
+    <section class="sent">
+      <h2>Mensagens Enviadas</h2>
+      <div *ngFor="let m of mensagensEnviadas" class="mensagem">
+        <div><strong>De:</strong> {{ m.remetente }}</div>
+        <div><strong>Para:</strong> {{ m.destinatario }}</div>
+        <div>{{ m.conteudo }}</div>
+        <div class="data">{{ m.data | date: 'short' }}</div>
+        <div class="buttons">
+          <button (click)="editarMensagem(m)">Editar</button>
+          <button (click)="m.id !== undefined ? eliminar(m.id) : null">Eliminar</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Mensagens Recebidas -->
+    <section class="received">
+      <h2>Mensagens Recebidas</h2>
+      <div *ngFor="let m of mensagensRecebidas" class="mensagemRecebida">
+        <div><strong>De:</strong> {{ m.remetente }}</div>
+        <div><strong>Para:</strong> {{ m.destinatario }}</div>
+        <div>{{ m.conteudo }}</div>
+        <div class="data">{{ m.data | date: 'short' }}</div>
+        <button (click)="responder(m.remetente, m.id)">Responder</button>
+      </div>
+    </section>
+     </div>
+    
+</div> 
+</main>
+
+
+
+<app-barralateral></app-barralateral>

@@ -1,0 +1,141 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    height: 150vh;
+  
+  }
+  
+  h1 {
+    text-align: center;
+    margin-top: 2rem;
+    color: #006;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1000px;
+    margin:90px auto;
+    
+  }
+  .form-card,
+  .tabela-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8rem;
+    width: 80%;
+    margin-top: 2%;
+    overflow-x: auto;
+  }
+  
+  h2, h3 {
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  input,
+  select {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .botoes {
+    margin-top: 1rem;
+  }
+  
+  .botoes button {
+    margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #006;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .botoes button:hover {
+    background-color: #0033aa;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th,
+  td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  td button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  button i {
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  
+ 
+  @media (max-width: 768px) {
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        min-height: 10vh;
+       
+      }
+      
+    main {
+      padding: 1rem;
+      margin-top: 10%;
+    
+    }
+  
+    .form-card,
+    .tabela-card {
+      padding: 1rem;
+      margin-top: 20%;
+      width: 100%;
+    }
+  
+    th,
+    td {
+      font-size: 14px;
+    }
+  
+    h1 {
+      font-size: 22px;
+    }
+  
+    .botoes button {
+      padding: 0.5rem;
+      font-size: 14px;
+    }
+  }
+  

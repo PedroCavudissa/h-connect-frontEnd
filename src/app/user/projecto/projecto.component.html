@@ -1,0 +1,76 @@
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<body>
+  <main class="container">
+    <div class="form-card">
+      <h2>{{ editando ? 'Editar Projeto' : 'Novo Projeto' }}</h2>
+      <form (ngSubmit)="salvarProjeto()" #formProjeto="ngForm">
+        <label>Nome:
+          <input type="text" [(ngModel)]="projetoAtual.nome" name="nome" required>
+        </label>
+  
+        <label>Descrição:
+          <input type="text" [(ngModel)]="projetoAtual.descricao" name="descricao" required>
+        </label>
+  
+        <label>Participantes:
+          <select multiple [(ngModel)]="projetoAtual.participantes" name="participantes">
+            <option *ngFor="let pessoa of listaPessoas" [ngValue]="pessoa">{{ pessoa }}</option>
+          </select>
+        </label>
+  
+        <label>Data de Criação:
+          <input type="date" [(ngModel)]="projetoAtual.dataCriacao" name="dataCriacao" [disabled]="true">
+        </label>
+  
+        <label>Status:
+          <select [(ngModel)]="projetoAtual.status" name="status">
+            <option>Em andamento</option>
+            <option>Concluído</option>
+            <option>Cancelado</option>
+          </select>
+        </label>
+  
+        <div class="botoes">
+          <button type="submit">{{ editando ? 'Atualizar' : 'Criar' }}</button>
+          <button type="button" (click)="cancelar()"><i class="bx bx-x"></i> Cancelar</button>
+        </div>
+      </form>
+    </div>
+  
+    <div class="tabela-card" *ngIf="projetos.length">
+      <h3>Projetos Cadastrados</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Participantes</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let projeto of projetos">
+            <td>{{ projeto.nome }}</td>
+            <td>{{ projeto.descricao }}</td>
+            <td>{{ projeto.participantes.join(', ') }}</td>
+            <td>{{ projeto.dataCriacao }}</td>
+            <td>{{ projeto.status }}</td>
+            <td>
+              <button (click)="editarProjeto(projeto)"><i class="bx bx-edit"></i></button>
+              <button (click)="excluirProjeto(projeto.id!)"><i class="bx bx-trash"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+    </div>
+  </main>
+  
+  <app-barralateral></app-barralateral>
+  
+</body>
+
+  <app-barralateral></app-barralateral>

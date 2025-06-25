@@ -1,0 +1,126 @@
+/* TOPBAR SEMPRE VISÍVEL */
+.supbar {
+    background-color: #006;
+    width: 100%;
+    height: 10%;
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .supbar .menu-topo {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 1rem;
+    gap: 4rem;
+    margin-left: 200px;
+  }
+  
+  .menu-topo li {
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+  }
+  
+    .menu-topo  i {
+  margin-top: 10px;
+  }
+  .boas-vindas {
+    margin-left: auto;
+    margin-right: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+  }
+  
+  .sair {
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* BOTÃO HAMBÚRGUER */
+  .hamburger {
+    display: none;
+    font-size: 30px;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+    cursor: pointer;
+    color: white;
+    background-color: #006;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  
+  /* SIDEBAR */
+  .sidebar {
+    display: none;
+    width: 220px;
+    background-color: #006;
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    transition: left 0.3s ease;
+    z-index: 1050;
+    padding-top: 70px; /* espaço para não cobrir o header */
+  }
+  
+  .sidebar.active {
+    left: 0;
+  }
+  
+  .sidebar .menu-lateral {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar .menu-lateral li {
+    margin-bottom: 1rem;
+    font-size: 18px;
+  }
+  
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+  
+    .supbar .menu-topo {
+      display: none;
+    }
+  
+    .hamburger {
+      display: block;
+    }
+  
+    .sidebar {
+      display: block;
+      padding-top: 70px;
+      margin-top: 15%;
+      margin-left: 2.2%;
+      height: 100%;
+      width: 70%;
+    }
+  
+    .sidebar .menu-lateral {
+      display: block;
+    position: absolute;
+    top:2%
+    }
+    .sidebar .menu-lateral li {
+        margin-bottom: 2rem;
+        font-size: 20px;
+        cursor: pointer;
+      }
+  }
+  

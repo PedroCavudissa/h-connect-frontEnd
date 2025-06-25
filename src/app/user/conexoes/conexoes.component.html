@@ -1,0 +1,34 @@
+<body>
+  
+
+<main class="container">
+
+  <div class="body">
+    <h2>Minhas Conexões</h2>
+  
+    <section>
+      <h3>Pedidos Pendentes</h3>
+      <div *ngFor="let c of conexoesPendentes" class="conexao-pendente">
+        <span>{{ getNomeUsuario(c.usuario_id === usuarioAtualId ? c.conectado_id : c.usuario_id) }}</span>
+        <button (click)="aceitarConexao(c.id)">Aceitar</button>
+        <button (click)="rejeitarConexao(c.id)">Rejeitar</button>
+      </div>
+      <div *ngIf="conexoesPendentes.length === 0">Nenhum pedido pendente</div>
+    </section>
+  
+  
+  
+    <section>
+      <h3>Enviar Pedido de Conexão</h3>
+      <select [(ngModel)]="novoConectadoId">
+        <option [value]="null" disabled>Escolha um usuário</option>
+        <option *ngFor="let u of usuarios" [value]="u.id" [disabled]="u.id === usuarioAtualId">{{ u.nome }}</option>
+      </select>
+      <button (click)="enviarPedido()">Enviar Pedido</button>
+    </section>
+  </div>
+
+</main>
+</body>
+<app-barralateral></app-barralateral>
+  

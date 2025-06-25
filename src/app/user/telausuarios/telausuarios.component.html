@@ -1,0 +1,72 @@
+<body>
+  
+
+<main class="dashboard">
+  <div class="container-fundo">
+
+
+
+  <!-- Resumo Dashboard -->
+  <section class="resumo-cards">
+    <div class="card" (click)="verDetalhes('Projetos')">
+      <h3>Projetos</h3>
+      <p>Você participa de 3 projetos.</p>
+    </div>
+    <div class="card" (click)="verDetalhes('Conexões')">
+      <h3>Conexões</h3>
+      <p>5 conexões ativas.</p>
+    </div>
+    <div class="card" (click)="verDetalhes('Publicações')">
+      <h3>Publicações</h3>
+      <p>2 novas esta semana.</p>
+    </div>
+    <div class="card" (click)="verDetalhes('Mensagens')">
+      <h3>Mensagens</h3>
+      <p>{{mensagens.length}} mensagens</p>
+    </div>
+  </section>
+
+<!-- Publicar nova -->
+<section class="nova-publicacao">
+  <div class="cabecalho">
+    <h2>Nova Publicação</h2>
+    <p (click)="verMais()" class="see">Ver Mais Publicações</p>
+  </div>
+  <textarea [(ngModel)]="novaPublicacao" placeholder="Compartilhe algo com a comunidade..."></textarea>
+  <button class="btn-publicar" (click)="publicar()">Publicar</button>
+</section>
+
+<!-- Feed de publicações -->
+<section class="feed-publicacoes">
+  <h2>Publicações Recentes</h2>
+
+  <div class="post" *ngFor="let post of publicacoes">
+    <p><strong>{{ post.autor }}</strong>: {{ post.conteudo }}</p>
+    <img *ngIf="post.imagem" [src]="post.imagem" alt="imagem do post" />
+
+    <div class="acoes-post">
+      <button (click)="curtirPost(post)">❤️ {{ post.likes }}</button>
+      <button>💬 {{ post.comentarios.length }} comentários</button>
+      <button *ngIf="!post.conectado" (click)="conectarCom(post.autor)">
+        🤝 Conectar-se
+      </button>
+    </div>
+
+    <!-- Comentário -->
+    <div class="comentarios">
+      <input #comentarioInput type="text" placeholder="Escreva um comentário..." />
+      <button (click)="comentarPost(post, comentarioInput)" class="btn-comentario">Comentar</button>
+    </div>
+
+    <!-- Lista de comentários -->
+    <div *ngIf="post.comentarios.length > 0" class="comentarios-lista">
+      <p *ngFor="let c of post.comentarios">
+        <strong>{{ c.autor }}:</strong> {{ c.texto }}
+      </p>
+    </div>
+  </div>
+</section>
+</div>
+</main>
+
+<app-barralateral></app-barralateral></body>
