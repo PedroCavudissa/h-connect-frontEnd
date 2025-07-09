@@ -1,0 +1,15 @@
+<div class="modal-overlay">
+    <div class="modal">
+      <button class="close-button" (click)="fechar.emit()">×</button>
+      <form [formGroup]="recuperarForm" (ngSubmit)="alterarSenha()">
+        <h2>Recuperar Senha</h2>
+  
+        <label>Email</label>
+        <input type="email" formControlName="gmail" placeholder="Digite seu Gmail" />
+  
+        <button type="submit">Alterar Senha</button>
+        <a class="voltar" (click)="voltarLogin.emit()">Voltar para login</a>
+      </form>
+    </div>
+  </div>
+  

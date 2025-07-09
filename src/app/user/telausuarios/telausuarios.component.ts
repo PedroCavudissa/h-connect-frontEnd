@@ -1,134 +1,310 @@
-import { Component } from '@angular/core';
-import { BarralateralComponent } from '../barralateral/barralateral.component';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Mensagem } from '../../app.config';
-import {ToastrService} from 'ngx-toastr';
 import { Notyf } from 'notyf';
-import 'notyf/notyf.min.css'; 
+import 'notyf/notyf.min.css';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { BarralateralComponent } from '../barralateral/barralateral.component';
+import { CriarPublicacaoDto, PublicacaoService } from '../../services/publicacao.service';
+import { CurtidaService } from '../../services/curtidas.service';
+import { ComentarioService } from '../../services/comentario.service';
+import { Publicacao } from '../../app.config';
+import { ConexaoService } from '../../services/conexao.service';
 
 @Component({
   selector: 'app-telausuarios',
-  imports: [BarralateralComponent,CommonModule,FormsModule],
+  standalone: true,
+  imports: [BarralateralComponent, CommonModule, FormsModule],
   templateUrl: './telausuarios.component.html',
   styleUrl: './telausuarios.component.css',
 })
-export class TelausuariosComponent {
-  notyf = new Notyf({
-    duration: 3000, 
-    position: {
-      x: 'right',
-      y: 'top',     
-    },
-  });
-  mensagens: Mensagem[] = [
-    {
-      id: 1,
-      remetente: 'João',
-      destinatario: 'Maria',
-      conteudo: 'Olá, tudo bem?',
-      data: new Date('2025-05-01T14:30:00')
-    }
-  ];
-  novaPublicacao: string = ''; // conteúdo digitado
-  publicacoes: any[] = [
-    {
-      autor: 'Luís Domingos',
-      conteudo: 'Compartilhando um novo projeto incrível!',
-      imagem: 'assets/imagens/projeto1.jpg',
-      likes: 3,
-      comentarios: [],
-      conectado: true,
-      curtiu:false
-    },
-    {
-      autor: 'Ana Capita',
-      conteudo: 'Alguém disponível para colaboração em FP?',
-      imagem: '',
-      likes: 1,
-      comentarios: [],
-      conectado: false,
-      curtiu:false
-    },
-  ];
+export class TelausuariosComponent implements OnInit {
+  notyf = new Notyf({ duration: 3000, position: { x: 'right', y: 'top' } });
 
-  
-  constructor(private router: Router,private toastr: ToastrService) {}
-  verDetalhes(nome: string): void {
-    switch (nome) {
-      case 'Projetos':
-        this.router.navigate(['/projecto']);
-        break;
-      case 'Publicações':
-        this.router.navigate(['/publicacoes']);
-        break;
-      case 'Mensagens':
-        this.router.navigate(['mensagens/']);
-        break;
-      case 'Conexões':
-        this.router.navigate(['/conexoes']);
-        break;
-      default:
-       this. notyf.success('Dados não disponíveis');
-    }
-  }
-
+  publicacoes: any[] = [];
+  conexoes: any[] = [];
+  novaPublicacao: string = '';
+  usuarioAtualId: number = 0;
+  novoConectadoId: number | null = null;
+  conectados: number[] = [];
+  modalUsuarioAberto = false;
+usuarioSelecionado: any = null;
 
 
   
-  curtirPost(post: any) {
-    if (!post.curtiu) {
-      post.likes++;
-      post.curtiu = true;
-      this.notyf.success('Você curtiu a publicação!');
+  constructor(
+    private router: Router,
+    private publicacaoService: PublicacaoService,
+    private curtidaService: CurtidaService,
+    private comentarioService: ComentarioService,
+    private conexaoService: ConexaoService
+  ) {}
+
+  ngOnInit(): void {
+    const payload = this.decodeToken();
+    if (payload?.sub) {
+      this.usuarioAtualId = +payload.sub;
+      this.carregarPublicacoes();
+      this.carregarConexoes();
     } else {
-      post.likes--;
-      post.curtiu = false;
-      this.notyf.success('Você removeu seu like.');
+      this.router.navigate(['/login']);
     }
   }
   
-
-  comentarPost(post: any, input: HTMLInputElement) {
-    const texto = input.value.trim();
-    if (texto.length === 0) return;
-
-    post.comentarios.push({ autor: 'Você', texto });
-    input.value = '';
-    this.notyf.success('Comentário adicionado!');
+  decodeToken(): any {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch {
+      return null;
+    }
   }
 
-  conectarCom(usuario: string) {
-    this.notyf.success(`Solicitação de conexão enviada para ${usuario}`);
+  carregarPublicacoes(): void {
+    this.publicacaoService.listarRecentes().subscribe({
+      next: (res: any[]) => {
+        this.publicacoes = res;
+  
+        for (let post of this.publicacoes) {
+          this.curtidaService.statusCurtida(post.id, this.usuarioAtualId).subscribe({
+            next: (status) => {
+              post.likes = status.total;
+              post.curtido = status.curtiu;
+            }
+          });
+  
+          // Carrega os comentários de forma explícita
+          this.comentarioService.listarPorPublicacao(post.id).subscribe({
+            next: (comentarios) => {
+              post.comentarios = comentarios;
+            },
+            error: () => {
+              post.comentarios = [];
+            }
+          });
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao carregar publicações', err);
+      }
+    });
+  }
+  
+  
+
+ 
+publicar(): void {
+  const conteudo = this.novaPublicacao.trim();
+  if (!conteudo) return;
+
+  const dto: CriarPublicacaoDto = {
+    conteudo,
+    usuarioId: this.usuarioAtualId,
+  };
+
+  this.publicacaoService.criar(dto).subscribe({
+    next: () => {
+      this.novaPublicacao = '';
+      this.notyf.success('Publicação feita com sucesso!');
+      this.carregarPublicacoes();
+    },
+    error: () => this.notyf.error('Erro ao publicar'),
+  });
+}
+
+comentarPost(publicacaoId: number, input: HTMLInputElement): void {
+  const conteudo = input.value.trim();
+  if (!conteudo) return;
+
+  this.comentarioService.criar({
+    conteudo,
+    usuarioId: this.usuarioAtualId,
+    publicacaoId
+  }).subscribe({
+    next: () => {
+      this.notyf.success('Comentário adicionado!');
+      input.value = '';
+
+      const post = this.publicacoes.find(p => p.id === publicacaoId);
+      if (post) {
+        this.comentarioService.listarPorPublicacao(publicacaoId).subscribe({
+          next: (comentarios) => {
+            post.comentarios = comentarios;
+          },
+          error: () => {
+            this.notyf.error('Erro ao atualizar comentários');
+            post.comentarios = [];
+          }
+        });
+      }
+    },
+    error: () => {
+      this.notyf.error('Erro ao comentar');
+    }
+  });
+}
+
+abrirModalComentarios(post: any): void {
+  this.comentarioService.listarPorPublicacao(post.id).subscribe({
+    next: (comentarios) => {
+      post.comentarios = comentarios;
+      post.mostrarModal = true;
+    },
+    error: () => {
+      post.comentarios = [];
+      post.mostrarModal = true;
+      this.notyf.error('Erro ao carregar comentários');
+    }
+  });
+}
+
+
+
+  editarComentario(comentario: any) {
+    this.comentarioService.editar(comentario.id, comentario.conteudo).subscribe({
+      next: () => {
+        this.notyf.success('Comentário editado!');
+        comentario.editando = false;
+      },
+      error: () => this.notyf.error('Erro ao editar comentário'),
+    });
+  }
+
+  excluirComentario(id: number) {
+    if (confirm('Tem certeza que deseja excluir este comentário?')) {
+      this.comentarioService.remover(id).subscribe({
+        next: () => {
+          this.notyf.success('Comentário removido!');
+          this.carregarPublicacoes();
+        },
+        error: () => this.notyf.error('Erro ao remover comentário'),
+      });
+    }
+  }
+
+  verMais(): void {
+    this.router.navigate(['/publicacoes']);
+  }
+
+  verDetalhes(nome: string): void {
+    const rotas: any = {
+      Projetos: '/projecto',
+      Publicações: '/publicacoes',
+      Mensagens: '/mensagens',
+      Conexões: '/conexoes',
+    };
+    this.router.navigate([rotas[nome] || '/']);
   }
 
  
 
-  criarPublicao() {
-    this.notyf.success('Redirecionando para página de publicações...');
+  alternarCurtida(post: any): void {
+    const foiCurtido = post.curtido;
+  
+    if (foiCurtido) {
+      this.curtidaService.descurtir(this.usuarioAtualId, post.id).subscribe({
+        next: () => {
+          post.curtido = false;
+          post.likes = (post.likes || 1) - 1;
+        },
+        error: () => this.notyf.error('Erro ao remover curtida'),
+      });
+    } else {
+      this.curtidaService.curtir(this.usuarioAtualId, post.id).subscribe({
+        next: () => {
+          post.curtido = true;
+          post.likes = (post.likes || 0) + 1;
+        },
+        error: () => this.notyf.error('Erro ao curtir'),
+      });
+    }
   }
 
-  verMais() {
-    this.notyf.success('Exibindo mais publicações...');
-    this.router.navigate(['/publicacoes'])
+  curtirPost(post: any): void {
+    if (post.curtido) {
+      this.curtidaService.descurtir(this.usuarioAtualId, post.id).subscribe({
+        next: () => {
+          post.curtido = false;
+          post.likes--;
+        },
+        error: () => this.notyf.error('Erro ao remover curtida'),
+      });
+    } else {
+      this.curtidaService.curtir(this.usuarioAtualId, post.id).subscribe({
+        next: () => {
+          post.curtido = true;
+          post.likes++;
+        },
+        error: () => this.notyf.error('Erro ao curtir'),
+      });
+    }
   }
-  publicar() {
-    const conteudo = this.novaPublicacao.trim();
-    if (conteudo.length === 0) return;
   
-    this.publicacoes.unshift({
-      autor: 'Você',
-      conteudo,
-      imagem: '',
-      likes: 0,
-      comentarios: [],
-      conectado: true,
+
+  //Conexão
+  conectarCom(destinatarioId: number): void {
+    if (!destinatarioId) return;
+  
+    this.conexaoService.enviarPedido(this.usuarioAtualId, destinatarioId).subscribe({
+      next: () => {
+        this.carregarConexoes();
+        this.notyf.success("Pedido Enviado!");
+      },
+      error: (err) => {
+        console.error('Erro ao enviar pedido:', err);
+        this.notyf.error("Erro ao enviar pedido!");
+      }
     });
+  }
   
-    this.novaPublicacao = '';
-    this.notyf.success('Publicação feita com sucesso!');
+  carregarConexoes(): void {
+    this.conexaoService.getConexoesDoUsuario(this.usuarioAtualId).subscribe({
+      next: (res: any[]) => {
+        this.conexoes = res;
+      },
+      error: err => {
+        console.error('Erro ao carregar conexões:', err);
+      }
+    });
+  }
   
-}
+  
+  podeConectarCom(id: number): boolean {
+    if (id === this.usuarioAtualId) return false;
+  
+    const conexaoExistente = this.conexoes.find(c =>
+      (c.usuario_id === this.usuarioAtualId && c.conectado_id === id) ||
+      (c.conectado_id === this.usuarioAtualId && c.usuario_id === id)
+    );
+  
+    // Se já existe conexão aceita ou pendente, não pode conectar
+    return !conexaoExistente;
+  }
+  
+  verificarStatusConexao(id: number): 'nenhuma' | 'pendente' | 'aceito' {
+    const conexao = this.conexoes.find(c =>
+      (c.usuario.id === this.usuarioAtualId && c.conectado.id === id) ||
+      (c.conectado.id === this.usuarioAtualId && c.usuario.id === id)
+    );
+  
+    if (!conexao) return 'nenhuma';
+  
+    return conexao.status === 'aceito' ? 'aceito' : 'pendente';
+  }
+  
+  alertaPendente(): void {
+    this.notyf.error('Você já enviou um pedido de conexão para este usuário.');
+  }
+  
+  abrirModalUsuario(usuario: any): void {
+    this.usuarioSelecionado = usuario;
+    this.modalUsuarioAberto = true;
+  }
+  
+  fecharModalUsuario(): void {
+    this.modalUsuarioAberto = false;
+    this.usuarioSelecionado = null;
+  }
+  
 }

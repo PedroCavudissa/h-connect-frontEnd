@@ -1,69 +1,67 @@
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <body>
     <header>
         <div class="hamburger" (click)="toggleMenu()" tabindex="0" (keyup.enter)="toggleMenu()">☰</div>
         <a href="#" class="logo">H-Connect</a>
         
         <nav [class.active]="menuAtivo">
-            <a href="#">Home</a>
             <a href="#about">Sobre</a>
             <a href="#contactos">Contactos</a>
            
         </nav>
         
-        <button class="cta-button" (click)="show()" tabindex="0" (keyup.enter)="show()">Login</button>
+        <button class="cta-button" (click)="show()" tabindex="0" (keyup.enter)="show()" >Login
+        
+        </button>
     </header>
 
     <main>
         <h1>Bem-vindo ao H-Connect</h1>
-        <img src="assets/imagens/test.jpg" alt="Ícone" height="30px">
-      
-       
+        <div class="carrossel-auto">
+          <div class="slides">
+            <div class="slide"><img src="assets/imagens/test.jpg" alt="Imagem 1"></div>
+            <div class="slide"><img src="assets/imagens/estuantes.jpg" alt="Imagem 2"></div>
+            <div class="slide"><img src="assets/imagens/estu.jpg" alt="Imagem 3"></div>
+          </div>
+        </div>
+        
         
        
         <section class="cards">
-            <div class="card">
-              <img src="assets/icones/aluno.png" alt="Ícone Aluno">
-              <h3>Desenvolvimento Acadêmico</h3>
-              <p>Conecte-se com colegas e especialistas da sua área de estudo para fortalecer seu aprendizado e expandir seu conhecimento.</p>
-            </div>
+          <div class="card">
+            <i class="bx bxs-graduation"></i>
+            <h3>Desenvolvimento Acadêmico</h3>
+            <p>Conecte-se com colegas e especialistas da sua área de estudo para fortalecer seu aprendizado e expandir seu conhecimento.</p>
+          </div>
         
-            <div class="card">
-              <img src="assets/icones/mensagem.png" alt="Ícone Mensagem">
-              <h3>Mensagens Diretas</h3>
-              <p>Comunique-se de forma rápida e eficiente com seus contatos, trocando ideias e colaborações em tempo real.</p>
-            </div>
+          <div class="card">
+            <i class="bx bx-message"></i>
+            <h3>Mensagens Diretas</h3>
+            <p>Comunique-se de forma rápida e eficiente com seus contatos, trocando ideias e colaborações em tempo real.</p>
+          </div>
         
-            <div class="card">
-              <img src="assets/icones/cale.png" alt="Ícone Calendário">
-              <h3>Gestão de Atividades</h3>
-              <p>Organize compromissos, reuniões e eventos em um calendário integrado à sua rede de conexões.</p>
-            </div>
+          <div class="card">
+            <i class="bx bx-calendar"></i>
+            <h3>Gestão de Atividades</h3>
+            <p>Organize compromissos, reuniões e eventos em um calendário integrado à sua rede de conexões.</p>
+          </div>
         
-            <div class="card">
-              <img src="assets/icones/book.png" alt="Ícone Livro">
-              <h3>Recursos Educacionais</h3>
-              <p>Acesse materiais de estudo, artigos e publicações relevantes para aprimorar sua formação profissional.</p>
-            </div>
         
-            <div class="card">
-              <img src="assets/icones/comunicado.png" alt="Ícone Comunicado">
-              <h3>Notificações Importantes</h3>
-              <p>Receba atualizações e avisos relevantes sobre projetos, grupos e novas interações.</p>
-            </div>
+      
+          <div class="card">
+            <i class="bx bx-cog"></i>
+            <h3>Preferências Personalizadas</h3>
+            <p>Controle sua experiência na plataforma com configurações que se adaptam às suas necessidades.</p>
+          </div>
+        </section>
         
-            <div class="card">
-              <img src="assets/icones/conf.png" alt="Ícone Configurações">
-              <h3>Preferências Personalizadas</h3>
-              <p>Controle sua experiência na plataforma com configurações que se adaptam às suas necessidades.</p>
-            </div>
-   </section>
    <div class="about" id="about">
         <button class="cta-button" (click)="show()" tabindex="0" (keyup.enter)="show()">Saber mais</button>
       
         <section>
             <h2>Sobre nós</h2>
             <p>A H-Connect é uma plataforma inovadora criada para conectar pessoas 
-                com diferentes formações acadêmicas, profissionais e vivências. Nosso objetivo é facilitar o encontro entre indivíduos com saberes diversos,
+                da área de TI. Nosso objetivo é facilitar o encontro entre indivíduos com saberes diversos,
                  promovendo parcerias enriquecedoras, trocas de conhecimento e
                   oportunidades de colaboração em projetos e iniciativas. Ao reunir
                    perfis variados em um ambiente dinâmico e acessível, a H-Connect se
@@ -73,43 +71,29 @@
             </p>
         </section>
         <div class="values">
-            <h2>Valores</h2>
-            <ul>
-                 <li><strong> Inovação:<br></strong> Buscamos constantemente novas soluções e tecnologias para entregar experiências modernas e eficientes aos nossos usuários.</li>
-                <li><strong>Colaboração:<br></strong> Acreditamos na força do trabalho em equipe, promovendo conexões entre pessoas com objetivos e visões complementares.</li>
-                <li><strong>Respeito:<br></strong> Valorizamos a diversidade, a escuta ativa e o tratamento justo, cultivando um ambiente inclusivo e acolhedor para todos.</li>
-                <li><strong>Transparência:</strong> Atuamos com clareza e honestidade em nossas ações, mantendo uma comunicação aberta com todos os envolvidos.</li>
-              
-            </ul>
-        </div>
-
-
-       <div class="mission">
-            <h2>Missão</h2>
-            <p>Nossa missão é criar pontes entre pessoas com diferentes formações, 
-                experiências e perspectivas, incentivando a colaboração,
-                 o compartilhamento de ideias e a construção de redes significativas. 
-                 Acreditamos que o verdadeiro crescimento acontece quando diferentes
-                  conhecimentos se encontram e se complementam. Por isso, buscamos oferecer 
-                  uma plataforma que valorize a diversidade intelectual e profissional, tornando 
-                  o aprendizado mútuo uma realidade acessível e contínua para todos os usuários.
-
-            </p>
-        </div>
-        <div class="vision">
-            <h2>Visão</h2>
-            <p>Acreditamos que a diversidade é um motor poderoso de transformação. 
-                Nossa visão é ser reconhecida como a principal plataforma de conexão 
-                entre pessoas que, mesmo vindo de contextos distintos, compartilham o
-                 desejo de aprender, inovar e construir juntos. Sonhamos com um mundo 
-                 onde a troca de experiências seja uma prática constante, em que as barreiras
-                  entre áreas do saber sejam superadas pela curiosidade, empatia e colaboração. 
-                  A H-Connect existe para tornar essa visão possível, unindo talentos e ideias e
-                  m prol de um futuro mais integrado e criativo.
-
-            </p>
+          <h2><i class="bx bx-bulb"></i> Valores</h2>
+          <ul>
+            <li><i class="bx bx-brain"></i> <strong>Inovação:<br></strong> Buscamos constantemente novas soluções e tecnologias para entregar experiências modernas e eficientes aos nossos usuários.</li>
         
-       </div>
+            <li><i class="bx bx-group"></i> <strong>Colaboração:<br></strong> Acreditamos na força do trabalho em equipe, promovendo conexões entre pessoas com objetivos e visões complementares.</li>
+        
+            <li><i class="bx bx-heart"></i> <strong>Respeito:<br></strong> Valorizamos a diversidade, a escuta ativa e o tratamento justo, cultivando um ambiente inclusivo e acolhedor para todos.</li>
+        
+            <li><i class="bx bx-show-alt"></i> <strong>Transparência:</strong> Atuamos com clareza e honestidade em nossas ações, mantendo uma comunicação aberta com todos os envolvidos.</li>
+          </ul>
+        </div>
+        
+        <div class="mission">
+          <h2><i class="bx bx-target-lock"></i> Missão</h2>
+          <p>    Nossa missão é capacitar estudantes da área de Tecnologia da Informação, promovendo um ambiente que favoreça o compartilhamento de conhecimento, a troca de experiências práticas e a construção de conexões profissionais. Buscamos ser um espaço onde futuros desenvolvedores, analistas, engenheiros de software e outros profissionais da TI possam crescer juntos, por meio da colaboração, aprendizado contínuo e acesso a recursos que impulsionem sua jornada acadêmica e profissional..</p>
+        </div>
+        
+        <div class="vision">
+          <h2><i class="bx bx-show"></i> Visão</h2>
+          <p> Nossa visão é ser reconhecida como a principal plataforma de suporte e desenvolvimento para estudantes de Tecnologia da Informação. Almejamos criar um ecossistema que conecte talentos em formação com oportunidades reais de aprendizado, projetos colaborativos e desafios do mercado. Queremos inspirar a próxima geração de profissionais de TI a inovar, resolver problemas de forma criativa e construir, desde cedo, uma rede sólida de contatos e experiências que impactem positivamente o futuro da tecnologia.
+          </p>
+        </div>
+        
        
     </div>
 
@@ -119,18 +103,21 @@
           <!-- Formulário à esquerda -->
           <div class="footer-form">
             <h3>Fale Conosco</h3>
-            <form action="#" method="post">
-              <input type="text" name="nome" placeholder="Seu nome" required>
-              <input type="email" name="email" placeholder="Seu email" required>
-              <textarea name="mensagem" rows="4" placeholder="Sua mensagem" required></textarea>
+            <form (ngSubmit)="enviarMensagem()" #formContato="ngForm">
+              <input type="text" name="nome" [(ngModel)]="nome" placeholder="Seu nome" required />
+              <input type="email" name="email" [(ngModel)]="email" placeholder="Seu email" required />
+              <textarea name="mensagem" [(ngModel)]="mensagem" rows="4" placeholder="Sua mensagem" required></textarea>
               <button type="submit">Enviar</button>
             </form>
           </div>
+         
+          
+      
       
           <!-- Contatos e links à direita -->
           <div class="footer-info" id="contactos">
             <h3>Contato</h3>
-            <p>Email: contatoh-connect.com</p>
+            <p>Email: h-connect&#64;gmail.com</p>
             <p>Telefone: +244 925213959</p>
       
             <ul class="footer-links">
@@ -143,4 +130,13 @@
           </div>
         </div>
       </footer>
+
 </body>
+
+
+
+<app-login *ngIf="modalAberto === 'login'" (fechar)="fecharModal()" (trocarCadastro)="abrirModal('cadastro')" (recuperarSenha)="abrirModal('recuperar')"></app-login>
+
+<app-cadastro *ngIf="modalAberto === 'cadastro'" (fechar)="fecharModal()" (voltarLogin)="abrirModal('login')"></app-cadastro>
+
+<app-recuperar *ngIf="modalAberto === 'recuperar'" (fechar)="fecharModal()" (voltarLogin)="abrirModal('login')"></app-recuperar>

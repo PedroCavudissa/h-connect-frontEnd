@@ -1,39 +1,45 @@
-<div>
-  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
-    <h2>Registre-se!</h2>
+<div class="modal-overlay">
+  <div class="modal">
+   
+   
+      <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+       
+        <h2>Registre-se!</h2>
   
-    <div>
-      <label for="nome">Nome:</label>
-      <input id="nome" formControlName="nome" required />
-    </div>
+        <div>
+          <button class="close-button" (click)="fechar.emit()">×</button>
+          <label for="nome">Nome:</label>
+          <input id="nome" formControlName="nome" required />
+        </div>
   
-    <div>
-      <label for="email">Email:</label>
-      <input id="email" formControlName="email" type="email" required />
-    </div>
+        <div>
+          <label for="email">Email:</label>
+          <input id="email" formControlName="email" type="email" required />
+        </div>
   
-    <div>
-      <label for="areaFormacao">Área de Formação:</label>
-      <input id="areaFormacao" formControlName="areaFormacao" required />
-    </div>
+        <div>
+          <label for="areaFormacao">Área de Formação:</label>
+          <input id="areaFormacao" formControlName="areaFormacao" required />
+        </div>
   
-    <div>
-      <label for="senha">Senha (6 dígitos):</label>
-      <input id="senha" formControlName="senha" type="password" maxlength="6" required />
-    </div>
+        <div>
+          <label for="senha">Senha (6 dígitos):</label>
+          <input id="senha" formControlName="senha" type="password" maxlength="6" required />
+        </div>
   
-    <div>
-      <label for="instituicao">Instituição:</label>
-      <input id="instituicao" formControlName="instituicao" />
-    </div>
+        <div>
+          <label for="instituicao">Instituição:</label>
+          <input id="instituicao" formControlName="instituicao" />
+        </div>
   
-    <div>
-      <label for="dataCadastro">Data de Cadastro:</label>
-      <input id="dataCadastro" formControlName="dataCadastro" type="date" readonly />
-    </div>
+        <div>
+          <label for="dataCadastro">Data de Cadastro:</label>
+          <input id="dataCadastro" formControlName="dataCadastro" type="date" readonly />
+        </div>
   
-    <button type="submit" [disabled]="!cadastroForm.valid">Cadastrar</button>
-  </form>
+        <button type="submit" [disabled]="!cadastroForm.valid">Cadastrar</button>
+      </form>
+
   
-  
+  </div>
 </div>

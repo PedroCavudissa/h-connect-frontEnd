@@ -1,4 +1,4 @@
-<body>
+<!--<body>
   
 
 <div class="container">
@@ -12,13 +12,12 @@
   <div class="card">
     <ng-container [ngSwitch]="menuAberto">
 
-      <!-- 🟫 Nenhuma opção selecionada -->
       <div *ngSwitchDefault>
         <h2>Definições</h2>
         <p>Escolha uma opção acima para visualizar os filtros ou agendar reuniões.</p>
       </div>
 
-      <!-- 🟩 Mensagens -->
+    
       <div *ngSwitchCase="'mensagens'" class="chat-container">
         <aside class="chat-sidebar">
           <h3>Conversas</h3>
@@ -63,7 +62,7 @@
         </section>
       </div>
 
-      <!-- 🟧 Projetos -->
+     
       <div *ngSwitchCase="'projetos'">
         <h3>Projetos</h3>
         <div *ngFor="let p of projetosFiltrados()">
@@ -88,7 +87,7 @@
         </div>
       </div>
 
-      <!-- 🟨 Conexões -->
+
       <div *ngSwitchCase="'conexoes'">
         <h3>Minhas Conexões</h3>
 
@@ -121,7 +120,6 @@
         </ng-template>
       </div>
 
-      <!-- 🟦 Reuniões -->
       <div *ngSwitchCase="'reunioes'">
         <h3>Reuniões Agendadas</h3>
 
@@ -181,4 +179,5 @@
   </div>
 </div>
 </body>
+*/-->
 <app-barralateral></app-barralateral>

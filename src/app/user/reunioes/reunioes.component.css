@@ -1,0 +1,212 @@
+.reunioes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 60px auto;
+  }
+  
+  .search input {
+    width: 100%;
+    padding: 10px;
+    margin: 0 24px 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .btn-nova-reuniao {
+    margin: 0 24px 20px;
+    padding: 10px 16px;
+    font-size: 14px;
+    border: none;
+    background-color: #0a84ff;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .btn-nova-reuniao:hover {
+    background-color: #006fe0;
+  }
+  
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 0 24px 24px;
+  }
+  
+  .card-reuniao {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: 0.2s;
+    position: relative;
+  }
+  .card-reuniao:hover {
+    transform: translateY(-3px);
+  }
+  
+  .card-reuniao h4 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .card-reuniao p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  
+  .card-reuniao a {
+    color: #0a84ff;
+    text-decoration: none;
+  }
+  .card-reuniao a:hover {
+    text-decoration: underline;
+  }
+  
+  .card-reuniao i {
+    font-size: 18px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  .card-reuniao i:hover {
+    color: #0a84ff;
+  }
+  
+  /* Modal */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 95%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .modal h3 {
+    margin-bottom: 20px;
+    color: #222;
+  }
+  
+  .modal label {
+    display: block;
+    margin-top: 12px;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .modal input,
+  .modal textarea,
+  .modal select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .modal-actions button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .modal-actions button.cancel {
+    background-color: #ccc;
+  }
+  
+  .modal-actions button:not(.cancel) {
+    background-color: #0a84ff;
+    color: white;
+  }
+  
+  .pagina-reunioes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    text-align: center;
+  }
+  
+  .reunioes-header {
+    margin-bottom: 20px;
+  }
+  
+  .search input {
+    padding: 8px;
+    width: 300px;
+    max-width: 90%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .btn-nova-reuniao {
+    background-color: #006;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .card-reuniao {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    width: 300px;
+    position: relative;
+    text-align: left;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  

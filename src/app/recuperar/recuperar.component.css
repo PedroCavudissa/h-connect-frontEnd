@@ -1,0 +1,107 @@
+/* Fundo escurecido */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 1rem;
+  }
+  
+  /* Caixa do modal */
+  .modal {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Botão de fechar */
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 1.7rem;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  /* Estilização do formulário */
+  form label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 500;
+  }
+  
+  form input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  /* Botão enviar */
+  form button[type="submit"] {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #006;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  form button[type="submit"]:hover {
+    background-color: #0044cc;
+  }
+  
+  /* Link voltar */
+  .voltar {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+    color: #006;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.95rem;
+  }
+  
+  /* Responsividade extra */
+  @media (max-width: 480px) {
+    .modal {
+      padding: 1.2rem;
+    }
+  
+    form label {
+      font-size: 0.95rem;
+    }
+  
+    form input {
+      font-size: 0.95rem;
+    }
+  
+    form button[type="submit"] {
+      font-size: 1rem;
+      padding: 0.6rem;
+    }
+  
+    .close-button {
+      font-size: 1.5rem;
+    }
+  }
+  

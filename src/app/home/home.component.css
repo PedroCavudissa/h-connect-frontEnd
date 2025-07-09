@@ -17,6 +17,25 @@
           background-color: #ffffff;
           box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        .modal-overlay {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw; height: 100vh;
+          background: rgba(0,0,0,0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+        
+        .modal {
+          background: white;
+          padding: 30px;
+          border-radius: 12px;
+          width: 400px;
+          max-width: 90vw;
+        }
+        
             
         .logo {
             font-size: 24px;
@@ -89,6 +108,7 @@
       
       main > img {
         max-width: 100%;
+        width: 80%;
         height: auto;
         margin: 20px 0;
       }
@@ -208,10 +228,23 @@
         gap: 40px;
       }
       
+      .footer-form input,
+.footer-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
       .footer-form,
       .footer-info {
         flex: 1;
         min-width: 280px;
+        color: #fff;
+      }
+      .footer-info p{
+        color: #ccc;
       }
       
       .footer-form h3,
@@ -316,6 +349,78 @@
         font-size: 14px;
         color: #555;
         line-height: 1.5;
+      }
+      .carrossel-auto {
+        width: 100%;
+        height: 500px; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background-color: #f4f4f4; /* opcional */
+        position: relative;
+      }
+      
+      .slides {
+        display: flex;
+        animation: slide-center 18s infinite;
+        height: 100%;
+        width: 100%;
+      }
+      
+      .slide {
+        min-width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .slide img {
+        max-width: 70%;
+        max-height: 100%;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+      }
+      .card i {
+        font-size: 48px;
+        color: #006;
+        margin-bottom: 16px;
+      }   
+      .values i,
+.mission i,
+.vision i {
+  color: #006;
+  margin-right: 8px;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.values ul li i {
+  color: #006;
+  margin-right: 8px;
+  font-size: 22px;
+}
+
+      
+      @keyframes slide-center {
+        0%   { transform: translateX(0%); }
+        30%  { transform: translateX(0%); }
+      
+        33.33% { transform: translateX(-100%); }
+        63.33% { transform: translateX(-100%); }
+      
+        66.66% { transform: translateX(-200%); }
+        96.66% { transform: translateX(-200%); }
+      
+        100% { transform: translateX(0%); }
+      }
+      
+      /* Responsivo */
+      @media (max-width: 768px) {
+        .carrossel {
+          max-width: 100%;
+        }
       }
       
       

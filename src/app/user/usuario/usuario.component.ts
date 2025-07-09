@@ -40,7 +40,7 @@ export class UsuarioComponent implements OnInit {
   ngOnInit(): void {
     const token = localStorage.getItem('token');
     if (token) {
-      const decoded: any = jwtDecode(token); 
+      const decoded: any = jwtDecode(token);  
       this.userId = decoded.sub;
 
       this.usuarioService.buscarPorId(this.userId).subscribe((dados: any) => {

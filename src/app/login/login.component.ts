@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { OnInit } from '@angular/core';
@@ -9,13 +9,6 @@ import 'notyf/notyf.min.css';
 import { LoginService } from '../services/login.service';
 
 
-const notyf = new Notyf({
-  duration: 3000, 
-  position: {
-    x: 'right',
-    y: 'top',     
-  },
-});
 
 
 @Component({
@@ -27,6 +20,18 @@ const notyf = new Notyf({
 
 })
 export class LoginComponent implements OnInit {
+  
+ notyf = new Notyf({
+  duration: 3000, 
+  position: {
+    x: 'right',
+    y: 'top',     
+  },
+});
+  @Output() fechar = new EventEmitter<void>();
+  @Output() trocarCadastro = new EventEmitter<void>();
+  @Output() recuperarSenha = new EventEmitter<void>();
+ 
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -39,18 +44,14 @@ export class LoginComponent implements OnInit {
     });
   }
   
-  
+  mostrarRecuperar = false;
+  mostrarCadastro=false;
   mostrarSidebar = true;
   mensagemLogin = '';
 tipoMensagem: 'erro' | 'sucesso' | '' = '';
 mostrarModal = false;
 recuperarForm!: FormGroup;
-
-
   loginForm!: FormGroup;
-
- 
-
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
@@ -71,35 +72,23 @@ recuperarForm!: FormGroup;
 fecharModal() {
   this.mostrarModal = false;
 }
-/*
-alterarSenha() {
-  if (this.recuperarForm.valid) {
-    const email = this.recuperarForm.get('gmail')?.value;
-    const senha = this.recuperarForm.get('senha')?.value;
 
-    const dados = { email, senha };
-
-    this.loginService.recuperarSenha().subscribe({
-      next: () => {
-        this.mostrarModal = false;
-        notyf.success('Senha alterada com sucesso!');
-        this.mensagemLogin = 'Senha alterada com sucesso!';
-        this.tipoMensagem = 'sucesso';
-      },
-      error: () => {
-        this.mensagemLogin = 'Erro ao alterar a senha. Verifique o email.';
-        this.tipoMensagem = 'erro';
-       
-      }
-    });
-  } else {
-    notyf.error('Usuário não encontrado ou erro ao alterar a senha.');
-    this.recuperarForm.markAllAsTouched();
+alterarSenha(){
+  if (this.recuperarForm.invalid) {
+    this.notyf.error('Preencha todos os campos corretamente!');
+    return;
   }
+
+  const { gmail, senha } = this.recuperarForm.value;
+
+  // Simulação do envio
+  console.log('Simulando envio para:', gmail, 'Nova senha:', senha);
+
+  this.notyf.success('E-mail de recuperação enviado com sucesso!');
+  this.recuperarForm.reset();
+  this.mostrarRecuperar = false;
 }
 
-*/
-alterarSenha(){}
 entrar() {
   if (this.loginForm.valid) {
     const usuario = {
@@ -109,19 +98,19 @@ entrar() {
 
     this.loginService.entrar(usuario).subscribe({
       next: (res: any) => {
-        notyf.success('Login realizado com sucesso!');
+        this.notyf.success('Login realizado com sucesso!');
         localStorage.setItem('token', res.token); // armazena o token
         this.router.navigate(['/telausuarios']); 
       },
       error: (error) => {
         console.error('Erro ao logar:', error);
-        notyf.error('E-mail ou senha inválidos');
+        this.notyf.error('E-mail ou senha inválidos');
       }
     });
 
   } else {
     this.loginForm.markAllAsTouched();
-    notyf.error('Preencha todos os campos corretamente.');
+    this.notyf.error('Preencha todos os campos corretamente.');
   }
 }
 
@@ -129,6 +118,5 @@ entrar() {
    
     this.router.navigate(['/cadastro']);
   }
-
-  
 }
+  

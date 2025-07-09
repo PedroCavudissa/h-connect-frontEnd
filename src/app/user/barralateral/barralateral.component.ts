@@ -58,8 +58,8 @@ export class BarralateralComponent {
                 break;}
 
                 
-                case 'Publicações':
-                {this.router.navigate(['/publicacoes']);
+                case 'Reuniões':
+                {this.router.navigate(['/reunioes']);
                 break;}
                 case 'Definições':
                   {this.router.navigate(['/definicoes']);
@@ -77,7 +77,7 @@ export class BarralateralComponent {
   }
   logout(){
     if (confirm('Deseja realmente sair?')) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
   }
   }
 }

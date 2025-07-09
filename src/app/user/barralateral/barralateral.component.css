@@ -12,11 +12,13 @@
   
   .supbar .menu-topo {
     display: flex;
+    justify-content: center;
+    align-items: center;
     list-style: none;
     padding: 0;
     margin: 0 1rem;
     gap: 4rem;
-    margin-left: 200px;
+    margin-left: 350px;
   }
   
   .menu-topo li {
@@ -91,36 +93,59 @@
     font-size: 18px;
   }
   
-
-  /* Responsividade */
-  @media (max-width: 768px) {
-  
-    .supbar .menu-topo {
-      display: none;
-    }
-  
-    .hamburger {
-      display: block;
-    }
-  
-    .sidebar {
-      display: block;
-      padding-top: 70px;
-      margin-top: 15%;
-      margin-left: 2.2%;
-      height: 100%;
-      width: 70%;
-    }
-  
-    .sidebar .menu-lateral {
-      display: block;
-    position: absolute;
-    top:2%
-    }
-    .sidebar .menu-lateral li {
-        margin-bottom: 2rem;
-        font-size: 20px;
-        cursor: pointer;
-      }
+/* RESPONSIVIDADE */
+@media (max-width: 992px) {
+  .supbar {
+    justify-content: space-between;
   }
-  
+
+  .supbar .menu-topo {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .boas-vindas {
+    margin-right: 1rem;
+  }
+
+  .sidebar {
+    display: block;
+    width: 70%;
+    padding-top: 80px;
+  }
+
+  .sidebar .menu-lateral {
+    display: block;
+  }
+
+  .sidebar .menu-lateral li {
+    font-size: 20px;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sair {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .hamburger {
+    font-size: 24px;
+  }
+
+  .boas-vindas {
+    font-size: 14px;
+    gap: 0.5rem;
+  }
+
+  .sidebar {
+    width: 85%;
+  }
+  .supbar{
+    
+  }
+}

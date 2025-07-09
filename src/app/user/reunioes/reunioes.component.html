@@ -1,0 +1,79 @@
+<div class="pagina-reunioes">
+    <div class="reunioes-header">
+      <h3>Reuniões Agendadas</h3>
+    </div>
+  
+    <div *ngIf="filtroReunioes" class="search">
+      <input
+        type="text"
+        [(ngModel)]="filtroReunioes"
+        placeholder="Buscar por título, participantes ou descrição..."
+      />
+    </div>
+  
+    <button class="btn-nova-reuniao" (click)="mostrarFormulario = true">
+      + Nova Reunião
+    </button>
+  
+    <div *ngIf="reunioesFiltradas().length === 0">
+      <p>Nenhuma reunião encontrada.</p>
+    </div>
+  
+    <div class="cards-container">
+      <div *ngFor="let r of reunioesFiltradas()" class="card-reuniao">
+        <div class="acoes-reuniao">
+          <i 
+  class="bx bx-edit" 
+  (click)="editarReuniao(r)" 
+  *ngIf="r.criador?.id === usuarioAtualId"
+></i>
+
+<i 
+  class="bx bx-trash" 
+  (click)="excluirReuniao(r.id)" 
+  *ngIf="r.criador?.id === usuarioAtualId"
+></i>
+
+        </div>
+        <h4>{{ r.titulo }}</h4>
+        <p><strong>Data:</strong> {{ r.dataHora | date: 'short' }}</p>
+        <p><strong>Criador:</strong> {{ r.criador?.nome || 'Desconhecido' }}</p>
+        <p><strong>Participantes:</strong> {{ getNomesParticipantes(r) }}</p>
+        <p><strong>Link:</strong> <a [href]="r.linkMeet" target="_blank">{{ r.linkMeet }}</a></p>
+        <p><strong>Descrição:</strong> {{ r.descricao }}</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal-backdrop" *ngIf="mostrarFormulario">
+    <div class="modal">
+      <h3>Agendar Nova Reunião</h3>
+  
+      <label>Título</label>
+      <input type="text" [(ngModel)]="novaReuniao.titulo" />
+  
+  
+      <label>Participantes</label>
+      <select multiple [(ngModel)]="novaReuniao.participantesIds">
+        <option *ngFor="let user of conectadosList" [value]="user.id">{{ user.nome }}</option>
+      </select>
+      
+  
+      <label>Data e Hora</label>
+      <input type="datetime-local" [(ngModel)]="novaReuniao.dataHora" />
+  
+      <label>Link do Google Meet</label>
+      <input type="url" [(ngModel)]="novaReuniao.link" placeholder="https://meet.google.com/..." />
+  
+      <label>Descrição</label>
+      <textarea [(ngModel)]="novaReuniao.descricao"></textarea>
+  
+      <div class="modal-actions">
+        <button (click)="agendarReuniao()">Agendar</button>
+        <button class="cancel" (click)="mostrarFormulario = false">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
+<app-barralateral></app-barralateral>

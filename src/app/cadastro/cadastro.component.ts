@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Notyf } from 'notyf';
@@ -22,6 +22,8 @@ const notyf = new Notyf({
 })
 export class CadastroComponent {
   cadastroForm: FormGroup;
+  mostrarCadastro= false;
+  
 today= new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
 constructor(
   private fb: FormBuilder,
@@ -57,5 +59,8 @@ onSubmit() {
     });
   }
 }
+@Output() fechar = new EventEmitter<void>();
+@Output() voltarLogin = new EventEmitter<void>();
+
 
 }

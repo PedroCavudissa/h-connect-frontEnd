@@ -1,34 +1,75 @@
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <body>
-  
-
 <main class="container">
+  <div class="conexoes-wrapper">
 
-  <div class="body">
     <h2>Minhas Conexões</h2>
-  
-    <section>
-      <h3>Pedidos Pendentes</h3>
-      <div *ngFor="let c of conexoesPendentes" class="conexao-pendente">
-        <span>{{ getNomeUsuario(c.usuario_id === usuarioAtualId ? c.conectado_id : c.usuario_id) }}</span>
-        <button (click)="aceitarConexao(c.id)">Aceitar</button>
-        <button (click)="rejeitarConexao(c.id)">Rejeitar</button>
-      </div>
-      <div *ngIf="conexoesPendentes.length === 0">Nenhum pedido pendente</div>
-    </section>
-  
-  
-  
-    <section>
-      <h3>Enviar Pedido de Conexão</h3>
-      <select [(ngModel)]="novoConectadoId">
-        <option [value]="null" disabled>Escolha um usuário</option>
-        <option *ngFor="let u of usuarios" [value]="u.id" [disabled]="u.id === usuarioAtualId">{{ u.nome }}</option>
-      </select>
-      <button (click)="enviarPedido()">Enviar Pedido</button>
-    </section>
-  </div>
 
+    <!-- 🔍 Pesquisa -->
+    <input type="text" [(ngModel)]="filtroNome" class="input-pesquisa" placeholder="Pesquisar conexões..." />
+
+    <!-- ✅ Lista de conexões -->
+    <section class="secao">
+      <h3>Conexões Ativas</h3>
+      <div *ngIf="conectadosList.length > 0; else semConexao">
+        <ul class="lista-conexoes">
+          <li *ngFor="let u of conectadosList | filterByNome:filtroNome">
+            <span>{{ u.nome }}</span>
+          </li>
+        </ul>
+      </div>
+      <ng-template #semConexao>
+        <p class="texto-vazio">Nenhuma conexão ativa</p>
+      </ng-template>
+    </section>
+
+    <!--  Botões -->
+    <section class="botoes-acao">
+      <button class="botao" (click)="abrirModalPendentes()"><i class="bx bx-download"> Recebidos</i></button>
+      <button class="botao" (click)="abrirModalEnviados()"><i class="bx bx-upload"></i> Enviados</button>
+    </section>
+
+    <!-- Modal Recebidos -->
+    <div class="modal" *ngIf="modalPendentesAberto">
+      <div class="modal-box">
+        <h4>Pedidos Recebidos</h4>
+        <div *ngIf="conexoesPendentesList.length > 0; else semRecebidos">
+          <div *ngFor="let c of conexoesPendentesList" class="item-pedido">
+            <span>{{ c.usuario.nome }}</span>
+            <div class="acoes">
+              <button (click)="aceitarConexao(c.id)">Aceitar</button>
+              <button (click)="rejeitarConexao(c.id)">Rejeitar</button>
+            </div>
+          </div>
+        </div>
+        <ng-template #semRecebidos>
+          <p class="texto-vazio">Nenhum pedido recebido</p>
+        </ng-template>
+        <button class="fechar" (click)="fecharModalPendentes()">Fechar</button>
+      </div>
+    </div>
+
+    <!--  Modal Enviados -->
+    <div class="modal" *ngIf="modalEnviadosAberto">
+      <div class="modal-box">
+        <h4>Pedidos Enviados</h4>
+        <div *ngIf="pedidosEnviadosList.length > 0; else semEnviados">
+          <li *ngFor="let u of pedidosEnviadosList" class="item-pedido">
+            <span>{{ u.nome }}</span>
+            <button (click)="excluirConexao(u.id)">Cancelar Pedido</button>
+          </li>
+          
+        </div>
+        <ng-template #semEnviados>
+          <p class="texto-vazio">Nenhum pedido enviado</p>
+        </ng-template>
+        <button class="fechar" (click)="fecharModalEnviados()">Fechar</button>
+      </div>
+    </div>
+
+  </div>
 </main>
+
+  
 </body>
 <app-barralateral></app-barralateral>
-  

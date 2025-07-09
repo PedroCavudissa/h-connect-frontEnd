@@ -1,76 +1,79 @@
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+<div class="pagina-projetos">
+  <div class="projetos-header">
+    <h3>Projectos Que Participas</h3>
+  </div>
 
-<body>
-  <main class="container">
-    <div class="form-card">
-      <h2>{{ editando ? 'Editar Projeto' : 'Novo Projeto' }}</h2>
-      <form (ngSubmit)="salvarProjeto()" #formProjeto="ngForm">
-        <label>Nome:
-          <input type="text" [(ngModel)]="projetoAtual.nome" name="nome" required>
-        </label>
-  
-        <label>Descrição:
-          <input type="text" [(ngModel)]="projetoAtual.descricao" name="descricao" required>
-        </label>
-  
-        <label>Participantes:
-          <select multiple [(ngModel)]="projetoAtual.participantes" name="participantes">
-            <option *ngFor="let pessoa of listaPessoas" [ngValue]="pessoa">{{ pessoa }}</option>
-          </select>
-        </label>
-  
-        <label>Data de Criação:
-          <input type="date" [(ngModel)]="projetoAtual.dataCriacao" name="dataCriacao" [disabled]="true">
-        </label>
-  
-        <label>Status:
-          <select [(ngModel)]="projetoAtual.status" name="status">
-            <option>Em andamento</option>
-            <option>Concluído</option>
-            <option>Cancelado</option>
-          </select>
-        </label>
-  
-        <div class="botoes">
-          <button type="submit">{{ editando ? 'Atualizar' : 'Criar' }}</button>
-          <button type="button" (click)="cancelar()"><i class="bx bx-x"></i> Cancelar</button>
-        </div>
-      </form>
-    </div>
-  
-    <div class="tabela-card" *ngIf="projetos.length">
-      <h3>Projetos Cadastrados</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Participantes</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let projeto of projetos">
-            <td>{{ projeto.nome }}</td>
-            <td>{{ projeto.descricao }}</td>
-            <td>{{ projeto.participantes.join(', ') }}</td>
-            <td>{{ projeto.dataCriacao }}</td>
-            <td>{{ projeto.status }}</td>
-            <td>
-              <button (click)="editarProjeto(projeto)"><i class="bx bx-edit"></i></button>
-              <button (click)="excluirProjeto(projeto.id!)"><i class="bx bx-trash"></i></button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <hr>
-    </div>
-  </main>
-  
-  <app-barralateral></app-barralateral>
-  
-</body>
+  <div *ngIf="filtroProjetos" class="search">
+    <input
+      type="text"
+      [(ngModel)]="filtroProjetos"
+      placeholder="Buscar por título, participantes ou descrição..."
+    />
+  </div>
 
-  <app-barralateral></app-barralateral>
+  <button class="btn-novo-projeto" (click)="mostrarModal = true">
+    + Novo Projecto
+  </button>
+
+  <div *ngIf="projetosFiltrados().length === 0">
+    <p>Nenhuma reunião encontrada.</p>
+  </div>
+
+<div class="cards-container">
+  <div *ngFor="let p of projetosFiltrados()" class="card-projeto">
+    <div class="acoes-projeto" *ngIf="p.id_criador === usuarioAtualId">
+      <i class="bx bx-edit" (click)="editarProjeto(p)"></i>
+      <i class="bx bx-trash" (click)="excluirProjeto(p.id!)"></i>
+    </div>
+    <h4>{{ p.nome }}</h4>
+    <p><strong>Descrição do Projecto:</strong> {{ p.descricao }}</p>
+    <p><strong>Status:</strong> {{ p.status }}</p>
+    <p><strong>Participantes:</strong></p>
+    <ul>
+      <li *ngFor="let participante of p.participantes">
+        {{ participante.nome || 'Desconhecido' }}
+      </li>
+    </ul>
+    <p><strong>Data de Criação:</strong> {{ p.dataCriacao }}</p>
+
+   
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal-backdrop" *ngIf="mostrarModal">
+  <div class="modal">
+    <h3>{{ editando ? 'Editar Projeto' : 'Criar Projeto' }}</h3>
+
+    <form (ngSubmit)="salvarProjeto()">
+      <label>Nome</label>
+      <input type="text" [(ngModel)]="projetoAtual.nome" name="nome" required />
+
+      <label>Descrição</label>
+      <input type="text" [(ngModel)]="projetoAtual.descricao" name="descricao" required />
+
+      <label>Participantes</label>
+      <select multiple [(ngModel)]="projetoAtual.participantes" name="participantes">
+        <option *ngFor="let user of conectadosList" [value]="user.id">{{ user.nome }}</option>
+      </select>
+
+      <label>Status</label>
+      <select [(ngModel)]="projetoAtual.status" name="status">
+        <option>Em andamento</option>
+        <option>Concluído</option>
+        <option>Cancelado</option>
+      </select>
+
+      <label>Data de Criação</label>
+      <input type="date" [(ngModel)]="projetoAtual.dataCriacao" name="dataCriacao" disabled />
+
+      <div class="modal-actions">
+        <button type="submit">{{ editando ? 'Atualizar' : 'Criar' }}</button>
+        <button class="cancel" type="button" (click)="fecharModal()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+<app-barralateral></app-barralateral>

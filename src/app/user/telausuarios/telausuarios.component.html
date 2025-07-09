@@ -1,72 +1,111 @@
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 <body>
-  
-
 <main class="dashboard">
+
+    <!-- Publicar nova -->
+    <section class="nova-publicacao">
+      <div class="cabecalho">
+        <h2>Nova Publicação</h2>
+      </div>
+      <textarea [(ngModel)]="novaPublicacao" placeholder="Compartilhe algo com a comunidade..."></textarea>
+      <button class="btn-publicar" (click)="publicar()">Publicar</button>
+    </section>
   <div class="container-fundo">
+    <section class="feed-publicacoes">
+      <h2>Publicações Recentes</h2>
+
+      <div class="post" *ngFor="let post of publicacoes">
+        <div class="cabecalho-post">
+          <div class="info-usuario">
+            <strong>{{ post.usuario?.nome }}</strong>
+            
+            <ng-container *ngIf="post.usuario?.id !== usuarioAtualId">
+              <i 
+                class="bx bx-show icon-olho"
+                (click)="abrirModalUsuario(post.usuario)">
+              </i>
+            </ng-container>
+          </div>
+        </div>
+
+   
+        
 
 
+        <p class="conteudo">{{ post.conteudo }}</p>
 
-  <!-- Resumo Dashboard -->
-  <section class="resumo-cards">
-    <div class="card" (click)="verDetalhes('Projetos')">
-      <h3>Projetos</h3>
-      <p>Você participa de 3 projetos.</p>
-    </div>
-    <div class="card" (click)="verDetalhes('Conexões')">
-      <h3>Conexões</h3>
-      <p>5 conexões ativas.</p>
-    </div>
-    <div class="card" (click)="verDetalhes('Publicações')">
-      <h3>Publicações</h3>
-      <p>2 novas esta semana.</p>
-    </div>
-    <div class="card" (click)="verDetalhes('Mensagens')">
-      <h3>Mensagens</h3>
-      <p>{{mensagens.length}} mensagens</p>
-    </div>
-  </section>
+        <img
+          *ngIf="post.imagem"
+          [src]="'http://localhost:3000/uploads/' + post.imagem"
+          alt="imagem do post" />
 
-<!-- Publicar nova -->
-<section class="nova-publicacao">
-  <div class="cabecalho">
-    <h2>Nova Publicação</h2>
-    <p (click)="verMais()" class="see">Ver Mais Publicações</p>
+        <div class="acoes-post">
+          <button (click)="curtirPost(post)">
+            {{ post.curtido ? '💔 Descurtir' : '❤️ Curtir' }} {{ post.likes || 0 }}
+          </button>          
+          <button (click)="abrirModalComentarios(post)">
+            💬 {{ post.comentarios?.length || 0 }} comentários
+          </button>
+          
+        </div>
+
+        <!-- Comentário -->
+        <div class="comentarios">
+          <input #comentarioInput type="text" placeholder="Escreva um comentário..." />
+          <button (click)="comentarPost(post.id, comentarioInput)" class="btn-comentario">Comentar</button>
+        </div>
+
+        <!-- Modal de Usuário -->
+              
+        <div class="modal" *ngIf="modalUsuarioAberto && usuarioSelecionado">
+          <div class="modal-conteudo">
+            <button class="fechar" (click)="fecharModalUsuario()">✖</button>
+            <h3>Perfil do Usuário</h3>
+        
+            <p><strong>Nome:</strong> {{ usuarioSelecionado.nome }}</p>
+            <p><strong>Área de Formação:</strong> {{ usuarioSelecionado.areaFormacao }}</p>
+            <p><strong>Instituição:</strong> {{ usuarioSelecionado.instituicao }}</p>
+            <button 
+            class="btn-conectar"
+            [disabled]="verificarStatusConexao(usuarioSelecionado.id) !== 'nenhuma'"
+            (click)="conectarCom(usuarioSelecionado.id)">
+            <ng-container [ngSwitch]="verificarStatusConexao(usuarioSelecionado.id)">
+              <span *ngSwitchCase="'aceito'"><i class="bx bx-check-circle"></i>  Já conectado</span>
+              <span *ngSwitchCase="'pendente'" (click)="alertaPendente()"><i class="bx bx-time-five"></i>  Pedido pendente</span>
+              <span *ngSwitchDefault><i class="bx bx-plus"></i>  Conectar-se</span>
+            </ng-container>
+          </button>
+          
+          </div>
+        </div>
+<!-- Modal de Comentários -->
+<div class="modal" *ngIf="post.mostrarModal">
+  <div class="modal-conteudo">
+    <button class="fechar" (click)="post.mostrarModal = false">✖</button>
+    <h3>Comentários</h3>
+
+    <div *ngIf="!post.comentarios || post.comentarios.length === 0">
+      <p><em>Nenhum comentário ainda. Seja o primeiro!</em></p>
+    </div>
+
+    <div *ngIf="post.comentarios && post.comentarios.length > 0">
+      <div *ngFor="let c of post.comentarios" class="comentario-item">
+        <p><strong>{{ c.usuario?.nome || 'Usuário' }}:</strong> {{ c.conteudo }}</p>
+
+
+      </div>
+    </div>
   </div>
-  <textarea [(ngModel)]="novaPublicacao" placeholder="Compartilhe algo com a comunidade..."></textarea>
-  <button class="btn-publicar" (click)="publicar()">Publicar</button>
-</section>
-
-<!-- Feed de publicações -->
-<section class="feed-publicacoes">
-  <h2>Publicações Recentes</h2>
-
-  <div class="post" *ngFor="let post of publicacoes">
-    <p><strong>{{ post.autor }}</strong>: {{ post.conteudo }}</p>
-    <img *ngIf="post.imagem" [src]="post.imagem" alt="imagem do post" />
-
-    <div class="acoes-post">
-      <button (click)="curtirPost(post)">❤️ {{ post.likes }}</button>
-      <button>💬 {{ post.comentarios.length }} comentários</button>
-      <button *ngIf="!post.conectado" (click)="conectarCom(post.autor)">
-        🤝 Conectar-se
-      </button>
-    </div>
-
-    <!-- Comentário -->
-    <div class="comentarios">
-      <input #comentarioInput type="text" placeholder="Escreva um comentário..." />
-      <button (click)="comentarPost(post, comentarioInput)" class="btn-comentario">Comentar</button>
-    </div>
-
-    <!-- Lista de comentários -->
-    <div *ngIf="post.comentarios.length > 0" class="comentarios-lista">
-      <p *ngFor="let c of post.comentarios">
-        <strong>{{ c.autor }}:</strong> {{ c.texto }}
-      </p>
-    </div>
-  </div>
-</section>
 </div>
-</main>
 
-<app-barralateral></app-barralateral></body>
+
+
+
+
+      </div>
+    </section>
+  </div>
+  
+</main>
+</body>
+<app-barralateral></app-barralateral>

@@ -6,10 +6,11 @@ import { TelausuariosComponent } from './user/telausuarios/telausuarios.componen
 import { UsuarioComponent } from './user/usuario/usuario.component';
 import { ProjetosComponent } from './user/projecto/projecto.component';
 import { ConexoesComponent } from './user/conexoes/conexoes.component';
-import { PublicacoesComponent } from './user/publicacoes/publicacoes.component';
 import { MensagensComponent } from './user/mensagens/mensagens.component';
 import { NotificacoesComponent } from './user/notificacoes/notificacoes.component';
 import { DefinicoesComponent } from './user/definicoes/definicoes.component';
+import { RecuperarComponent } from './recuperar/recuperar.component';
+import { ReunioesComponent } from './user/reunioes/reunioes.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,10 +21,9 @@ export const routes: Routes = [
   { path: 'usuario', component: UsuarioComponent },
   { path: 'projecto', component: ProjetosComponent },
   {path:'conexoes',component: ConexoesComponent},
-  {path:'pubicacoes',component: PublicacoesComponent},
   {path:'mensagens',component: MensagensComponent},
   {path:'notificacoes',component: NotificacoesComponent},
-{path:'publicacoes',component: PublicacoesComponent},
-{path:'definicoes',component: DefinicoesComponent}
-
+{path:'definicoes',component: DefinicoesComponent},
+ {path:'recuperar', component: RecuperarComponent},
+ {path:'reunioes', component: ReunioesComponent}
 ];

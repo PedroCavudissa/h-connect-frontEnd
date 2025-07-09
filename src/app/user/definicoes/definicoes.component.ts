@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BarralateralComponent } from '../barralateral/barralateral.component';
 import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css'; 
+import { ConexaoService } from '../../services/conexao.service';
 
 
 interface Projeto {
@@ -28,6 +29,7 @@ interface MensagemProjeto {
   styleUrl: './definicoes.component.css'
 })
 export class DefinicoesComponent {
+  /*
    notyf = new Notyf({
     duration: 3000, 
     position: {
@@ -35,6 +37,49 @@ export class DefinicoesComponent {
       y: 'top',     
     },
   });
+
+  projetos: Projeto[] = [];
+  constructor(private conexaoService: ConexaoService) {}
+
+ngOnInit(): void {
+  this.usuarioAtualId = this.usuarioLogado.id;
+  this.usuarioAtualNome = this.usuarioLogado.nome;
+
+  this.carregarUsuarios();
+  this.carregarConexoes();
+}
+
+carregarUsuarios() {
+  this.conexaoService.getTodosUsuarios().subscribe(res => this.usuarios = res);
+}
+
+carregarConexoes() {
+  this.conexaoService.getConexoesAceitas(this.usuarioAtualId).subscribe(res => {
+    this.conexoes = res as any[];
+  });
+}
+
+
+carregarProjetos() {
+  this.projetoService.getProjetosDoUsuario(this.usuarioAtualId).subscribe(res => {
+    this.projetos = res;
+  });
+}
+mensagens: any[] = [];
+
+carregarMensagensCom(usuarioId: number) {
+  this.mensagemService.getConversas(this.usuarioAtualId, usuarioId).subscribe(res => {
+    this.mensagens = res;
+  });
+}
+
+carregarReunioes() {
+  this.reuniaoService.getReunioesDoUsuario(this.usuarioAtualId).subscribe(res => {
+    this.reunioes = res;
+  });
+}
+
+
   menuAberto: string = '';
   mostrarFiltro: boolean = false;
 
@@ -104,11 +149,7 @@ if (confirmed) {
   }
   
 
-  conexoes = [
-    { usuario_id: 1, conectado_id: 2 },
-    { usuario_id: 3, conectado_id: 1 }
-  ];
-
+ 
   mostrarFormulario = false;
 
   novaReuniao = {
@@ -283,5 +324,6 @@ if (confirmed) {
       r.descricao.toLowerCase().includes(termo)
     );
   }
+  */
   
 }
