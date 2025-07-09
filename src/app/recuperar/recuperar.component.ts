@@ -18,19 +18,13 @@ export class RecuperarComponent {
 
   constructor(private fb: FormBuilder) {
     this.recuperarForm = this.fb.group({
-      gmail: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
      
     });
   }
 
   alterarSenha() {
-    if (this.recuperarForm.invalid) {
-      this.notyf.error('Preencha todos o campo corretamente!');
-      return;
-    }
-
-    const { gmail, senha } = this.recuperarForm.value;
-    console.log('Simulando envio para:', gmail, 'Nova senha:', senha);
+      const { email} = this.recuperarForm.value;
     this.notyf.success('E-mail de recuperação enviado com sucesso!');
     this.recuperarForm.reset();
     this.fechar.emit();

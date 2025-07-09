@@ -22,6 +22,13 @@ const notyf = new Notyf({
 
 })
 export class BarralateralComponent {
+  notyf = new Notyf({
+    duration: 5000, 
+    position: {
+      x: 'right',
+      y: 'top',     
+    },
+  });
   constructor( private router: Router) {}
   titulo = 'Dados Gerais';
   menuAtivo = false;
@@ -54,7 +61,7 @@ export class BarralateralComponent {
          
              
               case 'Mensagens':
-                {this.router.navigate(['/mensagens']);
+               {this.notyf.success('Esta Tela Está Em Construção.');
                 break;}
 
                 
@@ -71,13 +78,16 @@ export class BarralateralComponent {
 
  
       default:
-        notyf.success('Menu não reconhecido.');
+        this.notyf.success('Menu não reconhecido.');
         break;
     }
   }
-  logout(){
-    if (confirm('Deseja realmente sair?')) {
-      this.router.navigate(['/home']);
+  logout() {
+  if(confirm('Você tem certeza que deseja sair?')) {
+    localStorage.removeItem('token'); // Remove o token do localStorage
+    this.router.navigate(['/home']); // Redireciona para a página de login
+    this.notyf.success('Logout realizado com sucesso!');
   }
-  }
+  
+}
 }

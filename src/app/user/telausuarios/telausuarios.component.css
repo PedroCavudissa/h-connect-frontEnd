@@ -244,9 +244,11 @@ button.curtido {
 @media (max-width: 768px) {
   .dashboard {
     padding: 1rem;
-    margin-top: 60px;
+    width: 90%;
+    margin-bottom: 50%;
   }
 
+ 
   .info-usuario {
     flex-direction: column;
     align-items: flex-start;

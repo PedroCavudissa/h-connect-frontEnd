@@ -113,6 +113,10 @@
         margin-top: 10%;
       padding: 1rem;
     }
+    .card {
+      width: 90%;
+      margin-bottom: 60%;
+    }
   }
   
   @keyframes fadeIn {
@@ -138,6 +142,21 @@
     .modal-botoes button {
       width: 100%;
       margin: 0.5rem 0;
+    }
+    .card {
+      width: 90%;
+      margin-bottom: 60%;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .container {
+        margin-top: 10%;
+      padding: 1rem;
+    }
+    .card {
+      width: 90%;
+      margin-bottom: 60%;
     }
   }
   

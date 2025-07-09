@@ -99,12 +99,14 @@ entrar() {
     this.loginService.entrar(usuario).subscribe({
       next: (res: any) => {
         this.notyf.success('Login realizado com sucesso!');
+        console.log('Dados de Login:', usuario);
         localStorage.setItem('token', res.token); // armazena o token
         this.router.navigate(['/telausuarios']); 
       },
       error: (error) => {
         console.error('Erro ao logar:', error);
-        this.notyf.error('E-mail ou senha inválidos');
+this.notyf.error(error.error?.message || 'Erro ao logar');
+
       }
     });
 

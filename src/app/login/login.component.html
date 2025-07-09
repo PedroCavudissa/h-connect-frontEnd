@@ -2,7 +2,7 @@
 <div class="modal-overlay">
   <div class="login-wrapper">
     <button class="close-button" (click)="fechar.emit()">×</button>
-    <div class="login-box">
+
       <!-- Formulário de login -->
       <form [formGroup]="loginForm" (ngSubmit)="entrar()" class="formulario-login">
         <div class="input-group">
@@ -24,7 +24,7 @@
       <div class="esqueci-senha">
         <a (click)="recuperarSenha.emit()">Esqueci a senha</a> <br>
         <a (click)="trocarCadastro.emit()">Não possui conta?</a>
-      </div>
+    
     </div>
   </div>
 </div>

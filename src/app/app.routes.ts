@@ -11,19 +11,20 @@ import { NotificacoesComponent } from './user/notificacoes/notificacoes.componen
 import { DefinicoesComponent } from './user/definicoes/definicoes.component';
 import { RecuperarComponent } from './recuperar/recuperar.component';
 import { ReunioesComponent } from './user/reunioes/reunioes.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'cadastro', component: CadastroComponent },
-  { path: 'telausuarios', component: TelausuariosComponent },
-  { path: 'usuario', component: UsuarioComponent },
-  { path: 'projecto', component: ProjetosComponent },
-  {path:'conexoes',component: ConexoesComponent},
-  {path:'mensagens',component: MensagensComponent},
-  {path:'notificacoes',component: NotificacoesComponent},
-{path:'definicoes',component: DefinicoesComponent},
- {path:'recuperar', component: RecuperarComponent},
- {path:'reunioes', component: ReunioesComponent}
+  { path: 'cadastro', component: CadastroComponent,},
+  { path: 'telausuarios', component: TelausuariosComponent,canActivate: [AuthGuard]  },
+  { path: 'usuario', component: UsuarioComponent,canActivate: [AuthGuard]  },
+  { path: 'projecto', component: ProjetosComponent,canActivate: [AuthGuard]  },
+  {path:'conexoes',component: ConexoesComponent,canActivate: [AuthGuard] },
+  {path:'mensagens',component: MensagensComponent,canActivate: [AuthGuard] },
+  {path:'notificacoes',component: NotificacoesComponent,canActivate: [AuthGuard] },
+{path:'definicoes',component: DefinicoesComponent, canActivate: [AuthGuard] },
+ {path:'recuperar', component: RecuperarComponent, canActivate: [AuthGuard] },
+ {path:'reunioes', component: ReunioesComponent, canActivate: [AuthGuard] }
 ];

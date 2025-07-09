@@ -91,7 +91,7 @@ export class ReunioesComponent {
       next: () => {
         this.resetFormulario();
         this.carregarReunioes();
-        alert(this.modoEdicao ? 'Reunião atualizada com sucesso!' : 'Reunião agendada com sucesso!');
+        this.notyf.success(this.modoEdicao ? 'Reunião atualizada com sucesso!' : 'Reunião agendada com sucesso!');
       },
       error: (err: any) => {
         console.error(err);
@@ -129,7 +129,7 @@ export class ReunioesComponent {
       this.reuniaoService.excluir(id).subscribe({
         next: () => {
           this.carregarReunioes();
-          alert('Reunião excluída com sucesso!');
+          this.notyf.success('Reunião excluída com sucesso!');
         },
         error: err => {
           console.error(err);
